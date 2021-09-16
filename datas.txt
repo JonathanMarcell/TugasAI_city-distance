@@ -1,0 +1,46 @@
+-Cities : name latitude longitude
+Oradea 47.046501 21.918943
+Zerind 46.625011 21.516451
+Arad 46.175968 21.319000
+Sibiu 45.8000 24.1500
+Timisoara 45.7597 21.2300
+Lugoj 45.6861 21.9006
+Mehadia 44.2503 28.2614
+Dobreta 44.6361 22.6556
+Craiova 44.3333 23.8167
+Fagaras 45.8422 24.9714
+Rimnicu 45.1047 24.3756
+Pitesti 44.8667 24.8833
+Neamt 46.9275 26.3708
+Urziceni 44.7181 26.6453
+Bucharest 44.4000 26.0833
+Giurgiu 43.9000 25.9667
+Iasi 47.1622 27.5889
+Vaslui 46.6383 27.7292
+Hirsova 44.6833 27.9519
+Eforie 44.063944 28.633607
+
+-Links : city1 city 2 weight
+Oradea Zerind 71
+Oradea Sibiu 151
+Zerind Arad 75
+Arad Timisoara 118
+Arad Sibiu 140
+Timisoara Lugoj 111
+Lugoj Mehadia 70
+Mehadia Dobreta 75
+Dobreta Craiova 120
+Sibiu Fagaras 99
+Sibiu Rimnicu 80
+Rimnicu Pitesti 97
+Rimnicu Craiova 146
+Craiova Pitesti 138
+Fagaras Bucharest 211
+Pitesti Bucharest 101
+Bucharest Giurgiu 90
+Bucharest Urziceni 85
+Iasi Neamt 87
+Vaslui Iasi 92
+Urziceni Vaslui 92
+Urziceni Hirsova 98
+Hirsova Eforie 86
