@@ -18,5 +18,11 @@ namespace AI_CityDistance
             City1 = city1;
             City2 = city2;
         }
+
+        public override string ToString()
+        {
+            return $"Link from {City1.name} to {City2.name} is {weight}";
+        }
+
     }
 }

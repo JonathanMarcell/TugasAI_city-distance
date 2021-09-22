@@ -17,7 +17,7 @@ namespace AI_CityDistance
         List<City> cities = new List<City>();
         List<Link> links = new List<Link>();
         List<Button> buttons = new List<Button>();
-
+        List<City> path = new List<City>();
         City[] selectedCity= {null,null};
         public TUGAS_AI_1()
         {
@@ -87,6 +87,7 @@ namespace AI_CityDistance
                 {
                     MessageBox.Show(errormessage);
                 }
+                richTextBox1.Text += $"\n===================================\n\n";
             }
             else
             {
@@ -99,7 +100,13 @@ namespace AI_CityDistance
             links = new List<Link>(); 
             buttons = new List<Button>();
             panelMap.Controls.Clear();
+            panelMap.Invalidate();
             richTextBox1.Text = "";
+            path = new List<City>();
+            selectedCity[0] = null;
+            labelGoalCity.Text = "-";
+            labelStartCity.Text = "-";
+            selectedCity[1] = null;
         }
         private void generateMap()
         {
@@ -122,6 +129,10 @@ namespace AI_CityDistance
             foreach (Link item in links)
             {
                 drawLine(item.City1.getX(), item.City1.getY(), item.City2.getX(), item.City2.getY());
+            }
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                drawLine(path[i], path[i + 1], Color.Red);
             }
         }
         private void drawLine(int x1, int y1, int x2, int y2)
@@ -153,21 +164,25 @@ namespace AI_CityDistance
             {
                 selectedCity[0] = null;
                 b.BackColor = Control.DefaultBackColor;
+                labelStartCity.Text = "-";
             }
             else if (selectedCity[1] == temp)
             {
                 selectedCity[1] = null;
                 b.BackColor= Control.DefaultBackColor;
+                labelGoalCity.Text = "-";
             }
             else if (selectedCity[0] == null)
             {
                 selectedCity[0] = temp;
                 b.BackColor = Color.Aqua;
+                labelStartCity.Text = selectedCity[0].name;
             }
             else if (selectedCity[1] == null)
             {
                 selectedCity[1] = temp;
                 b.BackColor = Color.Aqua;
+                labelGoalCity.Text = selectedCity[1].name;
             }
 
         }
@@ -188,10 +203,83 @@ namespace AI_CityDistance
 
         private void buttonSTART_Click(object sender, EventArgs e)
         {
+            if (selectedCity[0]==null ||selectedCity[1]==null) { return; }
             if (radioButtonAstar.Checked)
             {
-                //code
-            }else if (radioButton1.Checked)
+                /////////////////////////////////////////////////////////////
+                //create open and close list
+                List<A_Star> openlist = new List<A_Star>();
+                List<City> closedlist = new List<City>();
+
+                
+                A_Star start = new A_Star(selectedCity[0]);
+                //add the start node
+                openlist.Add(start);
+
+                City current = null;
+                while (openlist != null)
+                {
+                    // look for the lowest F cost, F = g + H  ,
+                    // g = distance between the current node and the start node
+                    // H = heuristic cost Using manhattan distance
+                    if (openlist.Count<1)  
+                    {
+                        MessageBox.Show("Gagal");
+                        break;   
+                    }
+                    A_Star visitedCity = openlist[0];
+                    if (visitedCity.city==selectedCity[1]) // sampai ditujuan
+                    {
+                        closedlist.Add(visitedCity.city);
+                        path = closedlist;
+                        openlist = null;
+                        richTextBox1.Text +="\n ========= \n";
+                        richTextBox1.Text += "Rute :\n";
+                        foreach (City rute in closedlist)
+                        {
+                            richTextBox1.Text += $"{rute.name} , ";
+                        }
+                        panelMap.Invalidate();
+                        generateMap();
+                        for (int i = 0; i < closedlist.Count-1; i++)
+                        {
+                            drawLine(closedlist[i], closedlist[i+1], Color.Red);
+                        }
+                    }
+                    else
+                    {
+                        List<A_Star> BranchList = new List<A_Star>();
+                        // masuk ke tiap visited
+                        foreach (Link link in visitedCity.city.links)
+                        {
+                            //masuk ke tiap anaknya, cek juga mana yang asal/parent dan target/current
+                            current = link.City1;
+                            if (current == visitedCity.city) { current = link.City2; }
+                            //cari city f cost terkecil
+                            double g = link.weight+visitedCity.g;
+                            double h = HeuristicDistance(current, selectedCity[1]);
+                            A_Star temp= new A_Star(current, g + h, g, h);
+                            if (!closedlist.Contains(current))// tidak mengambil yang sudah dilewati
+                            {
+                                BranchList.Add(temp);
+                            }
+                        }
+                        //sort berdasar f cost
+                        BranchList = BranchList.OrderBy(branch => branch.f).ToList();
+                        //masukkan branch dengan f cost terkecil ke openlist
+                        if (BranchList.Count>0)
+                        {
+                            openlist.Add(BranchList[0]);
+                        }
+                        //pindah ke closed karena sudah dilewati
+                        openlist.Remove(visitedCity);
+                        closedlist.Add(visitedCity.city);
+                        openlist = openlist.OrderBy(branch => branch.f).ToList();
+                    }
+                }
+                
+            }
+            else if (radioButton1.Checked)
             {
                 //code
             }else if (radioButton2.Checked)
@@ -200,5 +288,29 @@ namespace AI_CityDistance
             }
         }
 
+        bool useXY_for_HeuristicDistance = true;
+        private double HeuristicDistance(City city1 , City city2)
+        {
+            if (useXY_for_HeuristicDistance)
+            {
+                // calc from latitude longitude resultant
+                double deltaY = Math.Abs(city1.getY() - city2.getY());
+                double deltaX = Math.Abs(city1.getX() - city2.getX());
+                return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+            }
+            else
+            {
+                // calc from latitude longitude resultant
+                double deltaY = Math.Abs(city1.latitude - city2.latitude);
+                double deltaX = Math.Abs(city1.longitude - city2.longitude);
+                return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+            }
+            //useful fact: sebenarnya ga perlu di sqrt juga hasilnya sama
+        }
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            clearAll();
+        }
     }
 }
