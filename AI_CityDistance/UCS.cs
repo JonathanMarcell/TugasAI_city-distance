@@ -19,10 +19,9 @@ namespace AI_CityDistance
             this.g = 0;
         }
 
-        public UCS(City city, double f, double g)
+        public UCS(City city, double g)
         {
             this.city = city;
-            this.f = f;
             this.g = g;
         }
 
