@@ -235,7 +235,7 @@ namespace AI_CityDistance
                         path = closedlist;
                         openlist = null;
                         richTextBox1.Text +="\n ========= \n";
-                        richTextBox1.Text += "Rute :\n";
+                        richTextBox1.Text += "Rute by A* :\n";
                         foreach (City rute in closedlist)
                         {
                             richTextBox1.Text += $"{rute.name} , ";
@@ -279,10 +279,73 @@ namespace AI_CityDistance
                     }
                 }
             }
-            else if (radioButton1.Checked)
+            else if (rbUCS.Checked)
             {
                 //code
-            }else if (btnBfs.Checked)
+                List<UCS> openlist = new List<UCS>();
+                List<City> closedlist = new List<City>();
+
+                UCS startNode = new UCS(selectedCity[0]);
+                openlist.Add(startNode);
+                City currNode = null;
+
+                while(openlist != null)
+                {
+                    if (openlist.Count<1)
+                    {
+                        MessageBox.Show("Belum memilih Node Awal!");
+                        break;
+                    }
+
+                    UCS visitedNode = openlist[0];
+                    if (visitedNode.city == selectedCity[1])
+                    {
+                        closedlist.Add(visitedNode.city);
+                        path = closedlist;
+                        openlist = null;
+                        richTextBox1.Text += "\n ========= \n";
+                        richTextBox1.Text += "Rute by UCS :\n";
+                        foreach (City rute in closedlist)
+                        {
+                            richTextBox1.Text += $"{rute.name} , ";
+                        }
+                        panelMap.Invalidate();
+                        generateMap();
+                        for (int i = 0; i < closedlist.Count - 1; i++)
+                        {
+                            drawLine(closedlist[i], closedlist[i + 1], Color.Red);
+                        }
+                    }
+                    else
+                    {
+                        List<UCS> childNode = new List<UCS>();
+                        foreach (Link link in visitedNode.city.links)
+                        {
+                            //memasukkan child dari startNode 
+                            currNode = link.City1;
+                            if (currNode == visitedNode.city) { currNode = link.City2; }
+                            //MessageBox.Show(currNode.name.ToString());
+                            double g = link.weight + visitedNode.g;
+                            double h = UCSdistance(currNode, selectedCity[1]);
+                            //MessageBox.Show(h.ToString());
+                            UCS final = new UCS(currNode, g + h, g, h);
+                            if (!closedlist.Contains(currNode))
+                            {
+                                childNode.Add(final);
+                            }
+                        }
+                        childNode = childNode.OrderBy(branch => branch.f).ToList();
+                        if (childNode.Count > 0)
+                        {
+                            openlist.Add(childNode[0]);
+                        }
+                        openlist.Remove(visitedNode);
+                        closedlist.Add(visitedNode.city);
+                        openlist = openlist.OrderBy(branch => branch.f).ToList();
+                    }
+                }
+            }
+            else if (btnBfs.Checked)
             {
                 //code
                 bfs(selectedCity[0], selectedCity[1]);
@@ -370,12 +433,15 @@ namespace AI_CityDistance
                 cityName.Add(item.name);
             }
             richTextBox1.Text += "\n ========= \n";
-            richTextBox1.Text += "Rute :\n";
+            richTextBox1.Text += "Rute by BFS :\n";
             richTextBox1.Text += string.Join(",", cityName);
         }
-        void ucs(City start, City goal)
+
+        private double UCSdistance(City city1, City city2)
         {
-            
+            double deltaY = Math.Abs(city1.getY() - city2.getY());
+            double deltaX = Math.Abs(city1.getX() - city2.getX());
+            return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
         }
     }
 }
