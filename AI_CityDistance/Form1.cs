@@ -341,6 +341,8 @@ namespace AI_CityDistance
                         cur = u.links[i].City2;
                         parent[u.links[i].City2] = u;
                         queue.Enqueue(u.links[i].City2);
+                        //untuk bfs draw line masih salah 
+                        //drawLine(parent[u.links[i].City2],cur, Color.Red);
                     }
                     else if (!u.links[i].City1.isVisited)
                     {
@@ -348,6 +350,8 @@ namespace AI_CityDistance
                         cur = u.links[i].City1;
                         parent[u.links[i].City1] = u;
                         queue.Enqueue(u.links[i].City1);
+                        //untuk bfs draw line masih salah 
+                        //drawLine(parent[u.links[i].City1],cur, Color.Red);
                     }
                 }
             }
