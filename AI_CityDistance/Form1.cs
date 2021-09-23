@@ -326,9 +326,9 @@ namespace AI_CityDistance
                             if (currNode == visitedNode.city) { currNode = link.City2; }
                             //MessageBox.Show(currNode.name.ToString());
                             double g = link.weight + visitedNode.g;
-                            double h = UCSdistance(currNode, selectedCity[1]);
+                            //double h = UCSdistance(currNode, selectedCity[1]);
                             //MessageBox.Show(h.ToString());
-                            UCS final = new UCS(currNode, g + h, g, h);
+                            UCS final = new UCS(currNode, g, g);
                             if (!closedlist.Contains(currNode))
                             {
                                 childNode.Add(final);
