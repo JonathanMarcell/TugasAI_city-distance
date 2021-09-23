@@ -10,6 +10,8 @@ namespace AI_CityDistance
 {
     class City
     {
+
+        public bool isVisited { get; set; }
         public int id { get; set; }
         public string name { get; set; }
         public double latitude { get; set; }//y

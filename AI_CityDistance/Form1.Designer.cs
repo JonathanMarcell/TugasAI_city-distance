@@ -36,7 +36,7 @@ namespace AI_CityDistance
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonAstar = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.btnBfs = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.buttonRedraw = new System.Windows.Forms.Button();
             this.labelStartCity = new System.Windows.Forms.Label();
@@ -50,16 +50,18 @@ namespace AI_CityDistance
             // panelMap
             // 
             this.panelMap.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panelMap.Location = new System.Drawing.Point(12, 12);
+            this.panelMap.Location = new System.Drawing.Point(16, 15);
+            this.panelMap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelMap.Name = "panelMap";
-            this.panelMap.Size = new System.Drawing.Size(720, 360);
+            this.panelMap.Size = new System.Drawing.Size(960, 443);
             this.panelMap.TabIndex = 0;
             // 
             // buttonLoadFile
             // 
-            this.buttonLoadFile.Location = new System.Drawing.Point(522, 378);
+            this.buttonLoadFile.Location = new System.Drawing.Point(696, 465);
+            this.buttonLoadFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonLoadFile.Name = "buttonLoadFile";
-            this.buttonLoadFile.Size = new System.Drawing.Size(68, 65);
+            this.buttonLoadFile.Size = new System.Drawing.Size(91, 80);
             this.buttonLoadFile.TabIndex = 1;
             this.buttonLoadFile.Text = "LOAD FILE";
             this.buttonLoadFile.UseVisualStyleBackColor = true;
@@ -67,9 +69,10 @@ namespace AI_CityDistance
             // 
             // buttonSTART
             // 
-            this.buttonSTART.Location = new System.Drawing.Point(596, 378);
+            this.buttonSTART.Location = new System.Drawing.Point(795, 465);
+            this.buttonSTART.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonSTART.Name = "buttonSTART";
-            this.buttonSTART.Size = new System.Drawing.Size(79, 65);
+            this.buttonSTART.Size = new System.Drawing.Size(105, 80);
             this.buttonSTART.TabIndex = 3;
             this.buttonSTART.Text = "START";
             this.buttonSTART.UseVisualStyleBackColor = true;
@@ -81,21 +84,24 @@ namespace AI_CityDistance
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 378);
+            this.richTextBox1.Location = new System.Drawing.Point(16, 465);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(504, 69);
+            this.richTextBox1.Size = new System.Drawing.Size(671, 84);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radioButtonAstar);
-            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.btnBfs);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(683, 374);
+            this.groupBox1.Location = new System.Drawing.Point(911, 460);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(116, 76);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(155, 94);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mode";
@@ -104,31 +110,34 @@ namespace AI_CityDistance
             // 
             this.radioButtonAstar.AutoSize = true;
             this.radioButtonAstar.Checked = true;
-            this.radioButtonAstar.Location = new System.Drawing.Point(6, 52);
+            this.radioButtonAstar.Location = new System.Drawing.Point(8, 64);
+            this.radioButtonAstar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButtonAstar.Name = "radioButtonAstar";
-            this.radioButtonAstar.Size = new System.Drawing.Size(76, 17);
+            this.radioButtonAstar.Size = new System.Drawing.Size(95, 21);
             this.radioButtonAstar.TabIndex = 2;
             this.radioButtonAstar.TabStop = true;
             this.radioButtonAstar.Text = "A-Star / A*";
             this.radioButtonAstar.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // btnBfs
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 33);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.btnBfs.AutoSize = true;
+            this.btnBfs.Location = new System.Drawing.Point(8, 41);
+            this.btnBfs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBfs.Name = "btnBfs";
+            this.btnBfs.Size = new System.Drawing.Size(55, 21);
+            this.btnBfs.TabIndex = 1;
+            this.btnBfs.TabStop = true;
+            this.btnBfs.Text = "BFS";
+            this.btnBfs.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(7, 14);
+            this.radioButton1.Location = new System.Drawing.Point(9, 17);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton1.Size = new System.Drawing.Size(110, 21);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "radioButton1";
@@ -136,9 +145,10 @@ namespace AI_CityDistance
             // 
             // buttonRedraw
             // 
-            this.buttonRedraw.Location = new System.Drawing.Point(739, 316);
+            this.buttonRedraw.Location = new System.Drawing.Point(985, 389);
+            this.buttonRedraw.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonRedraw.Name = "buttonRedraw";
-            this.buttonRedraw.Size = new System.Drawing.Size(60, 56);
+            this.buttonRedraw.Size = new System.Drawing.Size(80, 69);
             this.buttonRedraw.TabIndex = 6;
             this.buttonRedraw.Text = "ReDraw";
             this.buttonRedraw.UseVisualStyleBackColor = true;
@@ -147,44 +157,49 @@ namespace AI_CityDistance
             // labelStartCity
             // 
             this.labelStartCity.AutoSize = true;
-            this.labelStartCity.Location = new System.Drawing.Point(736, 38);
+            this.labelStartCity.Location = new System.Drawing.Point(981, 47);
+            this.labelStartCity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelStartCity.Name = "labelStartCity";
-            this.labelStartCity.Size = new System.Drawing.Size(10, 13);
+            this.labelStartCity.Size = new System.Drawing.Size(13, 17);
             this.labelStartCity.TabIndex = 7;
             this.labelStartCity.Text = "-";
             // 
             // labelGoalCity
             // 
             this.labelGoalCity.AutoSize = true;
-            this.labelGoalCity.Location = new System.Drawing.Point(736, 93);
+            this.labelGoalCity.Location = new System.Drawing.Point(981, 114);
+            this.labelGoalCity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelGoalCity.Name = "labelGoalCity";
-            this.labelGoalCity.Size = new System.Drawing.Size(10, 13);
+            this.labelGoalCity.Size = new System.Drawing.Size(13, 17);
             this.labelGoalCity.TabIndex = 8;
             this.labelGoalCity.Text = "-";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(736, 22);
+            this.label1.Location = new System.Drawing.Point(981, 27);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.Size = new System.Drawing.Size(58, 17);
             this.label1.TabIndex = 9;
             this.label1.Text = "START:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(736, 77);
+            this.label2.Location = new System.Drawing.Point(981, 95);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(51, 17);
             this.label2.TabIndex = 10;
             this.label2.Text = "GOAL:";
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(739, 268);
+            this.buttonReset.Location = new System.Drawing.Point(985, 330);
+            this.buttonReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(60, 42);
+            this.buttonReset.Size = new System.Drawing.Size(80, 52);
             this.buttonReset.TabIndex = 0;
             this.buttonReset.Text = "RESET";
             this.buttonReset.UseVisualStyleBackColor = true;
@@ -192,9 +207,9 @@ namespace AI_CityDistance
             // 
             // TUGAS_AI_1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -206,6 +221,7 @@ namespace AI_CityDistance
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.buttonLoadFile);
             this.Controls.Add(this.panelMap);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "TUGAS_AI_1";
             this.Text = "Romania";
             this.groupBox1.ResumeLayout(false);
@@ -224,7 +240,7 @@ namespace AI_CityDistance
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonAstar;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton btnBfs;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button buttonRedraw;
         private System.Windows.Forms.Label labelStartCity;

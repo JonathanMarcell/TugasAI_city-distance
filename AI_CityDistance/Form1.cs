@@ -19,6 +19,7 @@ namespace AI_CityDistance
         List<Button> buttons = new List<Button>();
         List<City> path = new List<City>();
         City[] selectedCity= {null,null};
+        
         public TUGAS_AI_1()
         {
             InitializeComponent();
@@ -277,14 +278,14 @@ namespace AI_CityDistance
                         openlist = openlist.OrderBy(branch => branch.f).ToList();
                     }
                 }
-                
             }
             else if (radioButton1.Checked)
             {
                 //code
-            }else if (radioButton2.Checked)
+            }else if (btnBfs.Checked)
             {
                 //code
+                bfs(selectedCity[0], selectedCity[1]);
             }
         }
 
@@ -307,10 +308,70 @@ namespace AI_CityDistance
             }
             //useful fact: sebenarnya ga perlu di sqrt juga hasilnya sama
         }
-
         private void buttonReset_Click(object sender, EventArgs e)
         {
             clearAll();
+        }
+        void bfs(City start, City goal)
+        {
+            List<City> bfstrav = new List<City>();
+
+            Queue<City> queue = new Queue<City>();
+            City cur = start;
+            cur.isVisited = true;
+            queue.Enqueue(cur);
+
+            IDictionary<City, City> parent = new Dictionary<City, City>();
+
+            foreach (City city in cities)
+            {
+                parent[city] = null;
+            }
+
+            while (queue.Count != 0)
+            {
+                City u = queue.Dequeue();
+                bfstrav.Add(u);
+
+                for (int i = 0; i < u.links.Count; i++)
+                {
+                    if (!u.links[i].City2.isVisited)
+                    {
+                        u.links[i].City2.isVisited = true;
+                        cur = u.links[i].City2;
+                        parent[u.links[i].City2] = u;
+                        queue.Enqueue(u.links[i].City2);
+                    }
+                    else if (!u.links[i].City1.isVisited)
+                    {
+                        u.links[i].City1.isVisited = true;
+                        cur = u.links[i].City1;
+                        parent[u.links[i].City1] = u;
+                        queue.Enqueue(u.links[i].City1);
+                    }
+                }
+            }
+            City dest = goal;
+            List<City> path = new List<City>();
+            while (dest != null)
+            {
+                path.Add(dest);
+                dest = parent[dest];
+            }
+
+            path.Reverse();
+            List<string> cityName = new List<string>();
+            foreach (var item in path)
+            {
+                cityName.Add(item.name);
+            }
+            richTextBox1.Text += "\n ========= \n";
+            richTextBox1.Text += "Rute :\n";
+            richTextBox1.Text += string.Join(",", cityName);
+        }
+        void ucs(City start, City goal)
+        {
+            
         }
     }
 }
